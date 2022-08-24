@@ -5,9 +5,10 @@
 
 #include "ground_segmentation/segment.h"
 #include "ground_segmentation/typedefs.h"
-#include "ground_segmentation/viewer.h"
 
-struct GroundSegmentationParams {
+class GroundSegmentationParams
+{
+  public:
   GroundSegmentationParams() :
       visualize(false),
       r_min_square(0.3 * 0.3),
@@ -73,9 +74,6 @@ class GroundSegmentation {
 
   // 2D coordinates (d, z) of every point in its respective segment.
   std::vector<Bin::MinZPoint> segment_coordinates_;
-
-  // Visualizer.
-  std::unique_ptr<Viewer> viewer_;
 
   void assignCluster(std::vector<int>* segmentation);
 

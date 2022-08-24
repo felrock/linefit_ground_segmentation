@@ -9,7 +9,8 @@
 using namespace std::chrono_literals;
 
 
-GroundSegmentation::GroundSegmentation(const GroundSegmentationParams& params) :
+GroundSegmentation::GroundSegmentation(const GroundSegmentationParams& params)
+  :
     params_(params),
     segments_(params.n_segments, Segment(params.n_bins,
                                          params.min_slope,
@@ -18,8 +19,8 @@ GroundSegmentation::GroundSegmentation(const GroundSegmentationParams& params) :
                                          params.long_threshold,
                                          params.max_long_height,
                                          params.max_start_height,
-                                         params.sensor_height)) {
-  if (params.visualize) viewer_.reset(new Viewer());
+                                         params.sensor_height))
+{
 }
 
 void GroundSegmentation::segment(const PointCloud& cloud, std::vector<int>* segmentation) {
@@ -59,7 +60,6 @@ void GroundSegmentation::segment(const PointCloud& cloud, std::vector<int>* segm
     }
     PointCloud::Ptr min_cloud = boost::make_shared<PointCloud>();
     getMinZPointCloud(min_cloud.get());
-    viewer_->visualize(lines, min_cloud, ground_cloud, obstacle_cloud);
   }
   std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double, std::milli> fp_ms = end - start;
