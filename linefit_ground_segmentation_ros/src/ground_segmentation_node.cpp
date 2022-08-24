@@ -38,9 +38,9 @@ class SegmentationNode : public rclcpp::Node
     ground_output_topic_ = declare_parameter("ground_output_topic", "ground_cloud");
     obstacle_output_topic_ = declare_parameter("obstacle_output_topic", "obstacle_cloud");
 
-    obstacle_pub_ = create_publisher<sensor_msgs::msg::PointCloud2>(obstacle_output_topic_, rclcpp::SensorDataQoS());
-    ground_pub_ = create_publisher<sensor_msgs::msg::PointCloud2>(ground_output_topic_, rclcpp::SensorDataQoS());
-    scan_sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(input_topic_, rclcpp::SensorDataQoS(),
+    obstacle_pub_ = create_publisher<sensor_msgs::msg::PointCloud2>(obstacle_output_topic_, 10);
+    ground_pub_ = create_publisher<sensor_msgs::msg::PointCloud2>(ground_output_topic_, 10);
+    scan_sub_ = create_subscription<sensor_msgs::msg::PointCloud2>(input_topic_, 10,
       std::bind(&SegmentationNode::scanCallback, this, std::placeholders::_1)
     );
   }
